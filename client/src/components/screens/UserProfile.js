@@ -2,7 +2,11 @@ import React, { useEffect, useState, useContext } from "react";
 import { UserContext } from "../../App";
 import { useParams } from "react-router-dom";
 import M from "materialize-css";
-
+/**
+ * Profile component
+ * 
+ * @returns Profile
+ */
 const Profile = () => {
   const [userProfile, setProfile] = useState(null);
   const { state, dispatch } = useContext(UserContext);
