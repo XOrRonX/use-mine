@@ -1,0 +1,144 @@
+const express = require('express')
+const router = express.Router()
+const mongoose = require('mongoose')
+const User = mongoose.model("User")
+const crypto = require('crypto')
+const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
+const { JWT_SECRET } = require('../keys')
+const { NODEMAILER } = require('../keys')
+const requireLogin = require('../middleware/requireLogin')
+const nodemailer = require('nodemailer')
+const sendgridTransport = require('nodemailer-sendgrid-transport')
+
+
+const transporter = nodemailer.createTransport(sendgridTransport({
+    auth:{
+        api_key:NODEMAILER
+    }
+}))
+
+router.get('/',(req,res)=>{
+    res.send("hello")
+})
+
+router.get('/protected',requireLogin,(req,res)=>{
+    res.send("hello user")
+})
+
+router.post('/signup',(req,res)=> {
+   const {name,email,password,photo} = req.body
+   if(!email || !password || !name){
+       return res.status(422).json({error:"הכנס בבקשה את כל השדות הדרושים"})
+   } 
+   User.findOne({email:email})
+   .then((savedUser)=>{
+       if(savedUser){
+           return res.status(422).json({error:"המייל המבוקש קיים במערכת"})
+       }
+       bcrypt.hash(password,12)
+       .then(hashedpassword=>{
+            const user = new User({
+                email,
+                password:hashedpassword,
+                name,
+                photo
+            })
+    
+            user.save()
+            .then(user=>{
+                transporter.sendMail({
+                    to:user.email,
+                    from:"or.ron7@gmail.com",
+                    subject:"הרישום בוצע הבצלחה",
+                    html:"<h1>ברוך הבא ל - useMine!</h1>"
+                })
+                res.json({message:"המשתמש נשמר בהצלחה"})
+            })
+            .catch(err=>{
+                console.log(err)
+            })
+       })
+       
+   })
+
+})
+
+router.post('/signin',(req,res)=>{
+    const {email,password} = req.body
+    if(!email || !password){
+        return res.status(422).json({error:"הכנס בבקשה מייל או סיסמא"})
+    }
+    User.findOne({email:email})
+    .then(savedUser=>{
+        if(!savedUser){
+            return res.status(422).json({error:"מייל או סיסמא שגויים"})
+        }
+        bcrypt.compare(password,savedUser.password)
+        .then(doMatch=>{
+            if(doMatch){
+            //    return res.json({message:"Successfully signed in"})
+                const token = jwt.sign({_id:savedUser._id}, JWT_SECRET)
+                const {_id,name,email,photo} = savedUser
+                res.json({token,user:{_id,name,email,photo}})
+            } else {
+                return res.status(422).json({error:"מייל או סיסמא שגויים"})
+            }
+        })
+        .catch(err=>{
+            console.log(err)
+        })
+    })
+})
+
+router.post('/reset-password',(req,res)=>{
+   crypto.randomBytes(32,(err,buffer)=>{
+       if(err){
+           console.log(err)
+       }
+       const token = buffer.toString('hex')
+       User.findOne({email:req.body.email})
+       .then(user=>{
+           if(!user){
+               return res.status(422).json({error:"משתמש לא קיים"})
+           }
+           user.resetToken = token
+           user.expireToken = Date.now() + 3600000
+           user.save().then((result)=>{
+               transporter.sendMail({
+                   to:user.email,
+                   from:"or.ron7@gmail.com",
+                   subject:"איפוס סיסמא",
+                   html:`
+                   <p>ביקשת לאפס את סיסמתך</p>
+                   <h5><a href="http://localhost:3000/reset/${token}">איפוס סיסמא</a> לחץ על הלינק הבא בכדי לאפס את סיסמתך </h5>
+                   `
+               })
+               res.json({message:"בדוק את תיבת המייל שלך"})
+           })
+       })
+   })
+})
+
+router.post('/new-password',(req,res)=>{
+    const newPassword = req.body.password
+    const sentToken = req.body.token
+    User.findOne({resetToken:sentToken,expireToken:{$gt:Date.now()}})
+    .then(user=>{
+        if(!user){
+            return res.status(422).json({error:"פג תוקף נסה שוב"})
+        }
+        bcrypt.hash(newPassword,12).then(hashedpassword=>{
+            user.password = hashedpassword
+            user.resetToken = undefined
+            user.expireToken = undefined
+            user.save().then((saveduser)=>{
+                res.json({message:"הסיסמא עודכנה בהצלחה"})
+            })
+        })
+    }).catch(err=>{
+        console.log(err)
+    })
+})
+
+module.exports = router

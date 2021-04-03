@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Grand+Hotel&display=swap');
+
+
+.brand-logo, h2{
+  font-family: 'Orbitron', sans-serif;
+}
+
+.auth-card{
+  padding: 20px;
+  text-align: center;
+  max-width: 400px;
+  margin: 10px auto;
+}
+
+.mycard{
+  margin-top: 5%;
+}
+
+.gallery{
+  display: flex;
+  flex-wrap: wrap;
+}
+.item{
+  width:30%;
+}
+
+.home{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0;
+}
+
+.home-card{
+  max-width: 250PX;
+  height: max-content;
+  margin: 1rem;
+  float: left;
+  position: relative;
+}
+
+#toast-container{
+  top:30px !important;
+  right:20px !important;
+  left: auto !important;
+}
+
+footer{
+  margin-top: 5%;
+  
+}
+
+.header{
+  background-color: #fafafa;
+  text-align: center;
+}
+
+.card{
+  color: #263238;
+  direction: rtl;
+}
+
+.card-action{
+  color:#263238;
+}
+
+.search{
+  max-width: 200px;
+  text-align: center;
+  max-width: 500px;
+  margin: 15px auto;
+  justify-content: center;
+}
+
+
+.headerText{
+  padding-left: 30%;
+  padding-right: 30%;
+  text-align: center;
+  justify-content: center;
+}
+
+.material-icons{
+  cursor: pointer;
+}
+
+.card.profile{
+  margin: 1rem;
+  max-width: 150PX;
+}
+
+.add-profile-image{
+  position: absolute;
+  margin-top: 135px;
+  margin-left: 135px;
+  
+}
+
+.cart-title {
+  display: flex;
+  align-items:center;
+}
+
+.collection-item{
+  color: black;
+  width: 100%;
+}
+
+.collection{
+  color: black;
+  width: 100%;
+}
+
+.modal-content{
+  direction: rtl;
+}
+
+.collection-items{
+  display: flex;
+  align-items:center;
+}
+
+.giphy {
+  width: 20%;
+}
