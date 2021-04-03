@@ -169,29 +169,6 @@ const Home = () => {
       <div className={loader === "determinate" ? "" : "progress"}>
         <div className={loader}></div>
       </div>
-      <nav className="search">
-        <div className="nav-wrapper blue-grey darken-2">
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              test(e.target[0].value);
-            }}
-          >
-            <div className="input-field">
-              <input
-                id="search"
-                type="search"
-                placeholder="חפש מוצר"
-                required
-              />
-              <label className="label-icon">
-                <i className="material-icons">search</i>
-              </label>
-              <i className="material-icons">close</i>
-            </div>
-          </form>
-        </div>
-      </nav>
       <div className="home">
         {data.map((item) => {
           return !filter || item.title === filter ? (
