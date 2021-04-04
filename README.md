@@ -1,7 +1,6 @@
-![Capture](https://user-images.githubusercontent.com/57252684/113507033-d47fce00-9550-11eb-8621-a5a8f481f4e6.PNG)
-
-
 # UseMine MERN Stack Project
+
+![Capture](https://user-images.githubusercontent.com/57252684/113507033-d47fce00-9550-11eb-8621-a5a8f481f4e6.PNG)
 
 #### _**IMPORTANT NOTE**_ - 
 This project does not have a mongoDB connection setup. Setup the connection based on the environments below.
