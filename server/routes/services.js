@@ -8,6 +8,15 @@ const paypal = require("paypal-rest-sdk");
 
 global.totalAmount = 0;
 
+/**
+ * findUser
+ * the function gets the user id and returns 
+ * the user module corresponding to the id.
+ * 
+ * @param {user id} userId 
+ * @param {res} res
+ * @returns res
+ */
 const findUser = (userId, res) => {
   User.findOne({ _id: userId })
     .select("-password")
