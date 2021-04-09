@@ -6,32 +6,50 @@ import M from "materialize-css";
 const NavBar = () => {
   const searchModel = useRef(null);
   const [search, setSearch] = useState("");
-  const [postDetails, setPostDetails] = useState([])
+  const [darkToggle, setDarkToggle] = useState("");
+  const [postDetails, setPostDetails] = useState([]);
   const { state, dispatch } = useContext(UserContext);
   const history = useHistory();
   useEffect(() => {
+    setDarkToggle('brightness_4');
     let sidenav = document.querySelector(".sidenav");
     M.Sidenav.init(sidenav, {});
     M.Modal.init(searchModel.current);
   }, []);
+
+  const darkMode = () => {
+    if (darkToggle === 'brightness_4') {
+      setDarkToggle('brightness_high');
+    } else {
+      setDarkToggle('brightness_4');
+    }
+    localStorage.setItem(
+      "mode",
+      (localStorage.getItem("mode") || "dark") === "dark" ? "light" : "dark"
+    );
+    localStorage.getItem("mode") === "dark"
+      ? document.querySelector("body").classList.add("dark")
+      : document.querySelector("body").classList.remove("dark");
+  };
+
   const renderList = () => {
     if (state) {
       return [
-        <li style={{ marginRight: "-3%" }} key={1}>
+        <li  key={1}>
           <Link to="/profile">אזור אישי</Link>
         </li>,
-        <li style={{ marginRight: "-3%" }} key={2}>
+        <li  key={2}>
           <Link to="" data-target="modal1" className="modal-trigger">
             חפש מוצר
           </Link>
         </li>,
-        <li style={{ marginRight: "-3%" }} key={3}>
+        <li  key={3}>
           <Link to="/create">פרסם מוצר</Link>
         </li>,
-        <li style={{ marginRight: "-3%" }} key={4}>
+        <li  key={4}>
           <button
-            className="btn waves-effect white"
-            style={{ color: "#FC4A1A", margin: "7.5px" }}
+            className="btn waves-effect"
+            
             onClick={() => {
               localStorage.clear();
               dispatch({ type: "CLEAR" });
@@ -41,36 +59,60 @@ const NavBar = () => {
             התנתק
           </button>
         </li>,
+        <li>
+          
+          <a
+            id="dark-toggle"
+            class="btn dark-toggle"
+            onClick={() => {
+              darkMode();
+            }}
+            title="Dark/light"
+          >
+            <i class="material-icons left">{darkToggle}</i>Dark Mode</a>
+        </li>,
       ];
     } else {
       return [
-        <li style={{ marginRight: "-3%" }} key={4}>
+        <li key={4}>
           <Link to="/signin">כניסה לחשבון</Link>
         </li>,
-        <li style={{ marginRight: "-3%" }} key={5}>
+        <li key={5}>
           <Link to="/signup">הירשם</Link>
         </li>,
+        <li>
+          
+        <a
+          id="dark-toggle"
+          class="btn dark-toggle"
+          onClick={() => {
+            darkMode();
+          }}
+          title="Dark/light"
+        >
+          <i class="material-icons left">{darkToggle}</i>Dark Mode</a>
+      </li>
       ];
     }
   };
 
-
-  const fetchPosts = (query) =>{
-    setSearch(query)
-    fetch('/search-post',{
+  const fetchPosts = (query) => {
+    setSearch(query);
+    fetch("/search-post", {
       method: "post",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        query
-      })
-    }).then(res=>res.json())
-    .then(result=>{
-      setPostDetails(result.post)
-      console.log(result)
+        query,
+      }),
     })
-  }
+      .then((res) => res.json())
+      .then((result) => {
+        setPostDetails(result.post);
+        console.log(result);
+      });
+  };
 
   return (
     <nav>
@@ -107,23 +149,37 @@ const NavBar = () => {
             onChange={(e) => fetchPosts(e.target.value)}
           />
           <div className="collection">
-            {postDetails.map(item=>{
-              return <Link key={item._id} className="collection-items" to={'/profile/'+item.postedBy}><img
-              style={{
-                width: "80px",
-                height: "80px",
-                borderRadius: "0px",
-                margin: "7px",
-              }}
-              src={item.photo}
-              alt=""
-              className="circle"
-            /><a href="#!" className="collection-item">{item.title}</a></Link>
+            {postDetails.map((item) => {
+              return (
+                <Link
+                  key={item._id}
+                  className="collection-items"
+                  to={"/profile/" + item.postedBy}
+                >
+                  <img
+                    style={{
+                      width: "80px",
+                      height: "80px",
+                      borderRadius: "0px",
+                      margin: "7px",
+                    }}
+                    src={item.photo}
+                    alt=""
+                    className="circle"
+                  />
+                  <a href="#!" className="collection-item">
+                    {item.title}
+                  </a>
+                </Link>
+              );
             })}
           </div>
         </div>
         <div className="modal-footer">
-          <button className="modal-close waves-effect waves-green btn-flat" onClick={()=>setSearch('')}>
+          <button
+            className="modal-close waves-effect waves-green btn-flat"
+            onClick={() => setSearch("")}
+          >
             סגור
           </button>
         </div>

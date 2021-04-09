@@ -51,12 +51,12 @@ footer{
 }
 
 .header{
-  background-color: #fafafa;
+  /* background-color: #fafafa; */
   text-align: center;
 }
 
 .card{
-  color: #263238;
+  /* color: #263238; */
   direction: rtl;
 }
 
@@ -122,4 +122,8 @@ footer{
 
 .giphy {
   width: 20%;
+}
+
+li {
+  margin-right: "-3%";
 }

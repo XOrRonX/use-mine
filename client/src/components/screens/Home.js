@@ -163,7 +163,7 @@ const Home = () => {
         console.log(err);
       });
   };
-
+  
   return (
     <div>
       <div className={loader === "determinate" ? "" : "progress"}>

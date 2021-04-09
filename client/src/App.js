@@ -3,6 +3,7 @@ import NavBar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import "./App.css";
+import "./DarkMode.scss";
 import { BrowserRouter, Route, Switch, useHistory } from "react-router-dom";
 import Home from "./components/screens/Home";
 import Signin from "./components/screens/Signin";

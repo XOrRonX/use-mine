@@ -1,7 +1,5 @@
 # UseMine MERN Stack Project
 
-![Capture](https://user-images.githubusercontent.com/57252684/113507033-d47fce00-9550-11eb-8621-a5a8f481f4e6.PNG)
-
 #### _**IMPORTANT NOTE**_ - 
 This project does not have a mongoDB connection setup. Setup the connection based on the environments below.
 - local development: create a config file (make sure to name it config.js) in the config folder, which exports your db.uri connection. An example is provided, config/config.example.js. This file will be ignored by git so your db credentials will be kept safe when the app is deployed.
