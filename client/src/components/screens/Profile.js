@@ -5,6 +5,7 @@ import M from "materialize-css";
 const Profile = () => {
   const [mypics, setPics] = useState([]);
   const [cart, setCart] = useState([]);
+  const [loader, setLoader] = useState("");
   let [sum, setSum] = useState(Number);
   const { state, dispatch } = useContext(UserContext);
 
@@ -82,6 +83,7 @@ const Profile = () => {
   };
 
   const pay = () => {
+    setLoader("indeterminate");
     fetch(`/pay/${state._id}`, {
       method: "post",
       headers: {
@@ -97,6 +99,7 @@ const Profile = () => {
         } else {
           console.log(result);
         }
+        setLoader("determinate");
       })
       .catch((err) => {
         console.log(err);
@@ -228,7 +231,7 @@ const Profile = () => {
         </div>
       </div>
       <div id="test-swipe-2" className="col s12">
-        <div className="card-panel right">
+        <div id="cardPanel" className="card-panel right black-text">
           <div id="collapsible" className="collapsible-header right ">
             <i className="material-icons">shopping_cart</i>
             סל מוצרים
@@ -256,6 +259,9 @@ const Profile = () => {
             סה"כ לתשלום: ₪{sum}
             <br />
           </p>
+          <div className={loader === "determinate" ? "" : "progress"}>
+            <div className={loader}></div>
+          </div>
           <button
             className="btn waves-effect  light-blue darken-4"
             onClick={() => pay()}

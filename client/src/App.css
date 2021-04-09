@@ -58,6 +58,7 @@ footer{
 .card{
   /* color: #263238; */
   direction: rtl;
+  position: relative;
 }
 
 .card-action{
@@ -87,6 +88,11 @@ footer{
 .card.profile{
   margin: 1rem;
   max-width: 150PX;
+}
+
+#cardPanel{
+  position: relative;
+  float: right;
 }
 
 .add-profile-image{
