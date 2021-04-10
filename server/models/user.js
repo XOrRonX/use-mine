@@ -14,6 +14,10 @@ const userSchema = new mongoose.Schema({
             type:String,
             required:true
         },
+        phone:{
+            type:String,
+            required:true
+        },
         resetToken:String,
         expireToken:Date,
         cart:[{type:ObjectId,ref:"Post"}],

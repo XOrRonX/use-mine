@@ -27,7 +27,7 @@ router.get('/protected',requireLogin,(req,res)=>{
 })
 
 router.post('/signup',(req,res)=> {
-   const {name,email,password,photo} = req.body
+   const {name,email,password,photo,phone} = req.body
    if(!email || !password || !name){
        return res.status(422).json({error:"הכנס בבקשה את כל השדות הדרושים"})
    } 
@@ -42,7 +42,8 @@ router.post('/signup',(req,res)=> {
                 email,
                 password:hashedpassword,
                 name,
-                photo
+                photo,
+                phone
             })
     
             user.save()
@@ -79,8 +80,8 @@ router.post('/signin',(req,res)=>{
             if(doMatch){
             //    return res.json({message:"Successfully signed in"})
                 const token = jwt.sign({_id:savedUser._id}, JWT_SECRET)
-                const {_id,name,email,photo} = savedUser
-                res.json({token,user:{_id,name,email,photo}})
+                const {_id,name,email,photo,phone} = savedUser
+                res.json({token,user:{_id,name,email,photo,phone}})
             } else {
                 return res.status(422).json({error:"מייל או סיסמא שגויים"})
             }

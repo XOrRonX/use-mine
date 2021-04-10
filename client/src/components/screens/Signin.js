@@ -42,7 +42,7 @@ const Signin = () => {
   return (
     <div className="mycard">
       <div className="card auth-card ">
-        <h2>Use Mine!</h2>
+        <h2>UseMine</h2>
         <input type="text" placeholder="אימייל" value={email} onChange={(e)=>setEmail(e.target.value)}/>
         <input type="password" placeholder="סיסמא" value={password} onChange={(e)=>setPassword(e.target.value)}/>
         <button className="btn waves-effect  light-blue darken-4" onClick={()=>PostData()}>היכנס לחשבון</button>

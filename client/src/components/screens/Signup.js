@@ -8,6 +8,7 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [photo, setPhoto] = useState("");
+  const [phone, setPhone] = useState("");
   const [url, setUrl] = useState("");
 
   useEffect(() => {
@@ -56,7 +57,8 @@ const Signup = () => {
         name,
         password,
         email,
-        photo:url,
+        photo: url,
+        phone: "+972" + parseInt(phone, 10)
       }),
     })
       .then((res) => res.json())
@@ -87,8 +89,8 @@ const Signup = () => {
   return (
     <div className="mycard">
       <div className="card auth-card ">
-        <h2>Use Mine!</h2>
-        <i className="material-icons prefix">account_circle</i>
+        <h2>UseMine</h2>
+        <i className="small material-icons prefix">account_circle</i>
         <input
           type="text"
           placeholder="שם מלא"
@@ -106,6 +108,13 @@ const Signup = () => {
           placeholder="סיסמא"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+        />
+        <input
+          type="tel"
+          placeholder="טלפון נייד"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          class="validate"
         />
         <div className="file-field input-field">
           <div className="btn blue darken-1">

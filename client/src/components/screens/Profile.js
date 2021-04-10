@@ -179,11 +179,21 @@ const Profile = () => {
         </div>
         <div>
           <h5>{state ? state.name : "loading"}</h5>
-          <h6>46 posts</h6>
+          <a style={{margin: "7px"}} target="_blank" href={`https://wa.me/${state ? state.phone : ""}?text=Hi%20How's%20it%20going?`}><i class="fab fa-whatsapp fa-2x"></i></a>
+          <a style={{margin: "7px"}} target="_blank" href="#"><i class="fab fa-facebook-square fa-2x"></i></a>
+          <a style={{margin: "7px"}} target="_blank" href="#"><i class="fab fa-facebook-messenger fa-2x"></i></a>
+          <div
+           style={{
+            display: "flex",
+            justifyContent: "space-between",
+            width: "108%",
+          }}
+          >
+          <h6>{mypics.length} פוסטים</h6>
           <h6>
-            {state ? (state.rating ? state.rating.length : "") : "0"} rating
-            <i className="material-icons">grade</i>
+            {state ? (state.rating ? state.rating.length : "0") : "0"} דירוג
           </h6>
+          </div>
         </div>
       </div>
 

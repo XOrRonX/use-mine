@@ -122,7 +122,7 @@ const NavBar = () => {
           className="brand-logo right"
           style={{ marginRight: "3%" }}
         >
-          Use Mine!
+          UseMine
         </Link>
         <a href="#" className="sidenav-trigger" data-target="mobile-links">
           <i className="material-icons">menu</i>

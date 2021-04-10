@@ -127,6 +127,9 @@ const Profile = () => {
             </div>
             <div>
               <h5>{userProfile ? userProfile.user.name : ""}</h5>
+              <a style={{margin: "7px"}} target="_blank" href={`https://wa.me/${userProfile ? userProfile.user.phone : ""}?text=Hi%20How's%20it%20going?`}><i class="fab fa-whatsapp-square fa-2x"></i></a>
+              <a style={{margin: "7px"}} target="_blank" href="#"><i class="fab fa-facebook-square fa-2x"></i></a>
+              <a style={{margin: "7px"}} target="_blank" href="#"><i class="fab fa-facebook-messenger fa-2x"></i></a>
               <div
                 style={{
                   display: "flex",
@@ -134,9 +137,9 @@ const Profile = () => {
                   width: "108%",
                 }}
               >
-                <h6>46 posts</h6>
+                <h6>{userProfile ? userProfile.posts.length : "0"} פוסטים</h6>
                 <h6>
-                  {userProfile ? userProfile.user.rating.length : ""} rating
+                  {userProfile ? userProfile.user.rating.length : ""} דירוג
                 </h6>
               </div>
               {showRate ? (
@@ -156,6 +159,7 @@ const Profile = () => {
                   הסר דירוג
                 </button>
               )}
+              
             </div>
           </div>
 
