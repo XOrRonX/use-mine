@@ -35,6 +35,17 @@ const findUser = (userId, res) => {
     });
 };
 
+/**
+ * rateUser
+ * the function is responsible to rate other users.
+ * it gets the current user id and the rated user,
+ * and update the current user rating list and the rated user list.
+ * 
+ * @param {user id} userId 
+ * @param {rate id} rateId 
+ * @param {res} res 
+ * @returns res
+ */
 const rateUser = (userId, rateId, res) => {
   User.findByIdAndUpdate(
     rateId,
@@ -66,6 +77,17 @@ const rateUser = (userId, rateId, res) => {
   );
 };
 
+/**
+ * unrateUser
+ * the function is responsible to unrate other users.
+ * it gets the current user id and the unrated user,
+ * and update the current user rating list and the unrated user list.
+ * 
+ * @param {user id} userId 
+ * @param {rate id} rateId 
+ * @param {res} res 
+ * @returns res
+ */
 const unrateUser = (userId, unrateId, res) => {
     User.findByIdAndUpdate(
         unrateId,
@@ -97,6 +119,19 @@ const unrateUser = (userId, unrateId, res) => {
         );
 }
 
+/**
+ * pay
+ * the function gets the user id.
+ * find the user corresponding to the id
+ * go over it's cart and creating item list.
+ * once the list is done it creates a payment request via PayPal.
+ * 
+ * 
+ * @param {user id} userId 
+ * @param {rate id} rateId 
+ * @param {res} res 
+ * @returns res
+ */
 const pay = (userId, res) => {
     User.findOne({ _id: userId })
     .then((user) => {
@@ -192,6 +227,13 @@ const completePayment = (payerId, paymentId, res) => {
   );
 }
 
+/**
+ * getAllPosts
+ * the function collect from DB all the posts.
+ * 
+ * @param {res} res 
+ * @returns {posts} res
+ */
 const getAllPosts = (res) => {
     Post.find()
     .populate("postedBy","_id name photo")
@@ -205,6 +247,14 @@ const getAllPosts = (res) => {
     })
 }
 
+/**
+ * createPost
+ * the function gets from the user the request post.
+ * and creates a new entity of post in the DB.
+ * 
+ * @param {res} res 
+ * @returns res
+ */
 const createPost = (req,res) => {
     const {title,body,pic,price} = req.body
 
@@ -228,6 +278,15 @@ const createPost = (req,res) => {
     })
 }
 
+
+/**
+ * updateProfilePicture
+ * the function gets the user id and the url photo
+ * and update the user photo.
+ * 
+ * @param {res} res 
+ * @returns res
+ */
 const updateProfilePicture = (userId, photo, res) => {
     User.findByIdAndUpdate(userId,{$set:{photo:photo}},{new:true},
         (err,result)=>{
@@ -238,6 +297,15 @@ const updateProfilePicture = (userId, photo, res) => {
         })
 }
 
+/**
+ * addItem
+ * the function gets the user id and the item.
+ * and update the user cart with the new item.
+ * 
+ * @param {userId} userId 
+ * @param {item} item 
+ * @returns res
+ */
 const addItem = (userId, item, res) => {
     if(!item){
         return res.status(422).json({error:"הכנס בבקשה את כל השדות הדרושים"})
