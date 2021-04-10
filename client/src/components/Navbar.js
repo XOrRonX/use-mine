@@ -116,13 +116,13 @@ const NavBar = () => {
 
   return (
     <nav>
-      <div className="nav-wrapper blue-grey darken-1">
+      <div className="nav-wrapper blue-grey  lighten-1">
         <Link
           to={state ? "/" : "/signin"}
           className="brand-logo right"
           style={{ marginRight: "3%" }}
         >
-          UseMine
+          <img style={{width:"70px"}} src="https://res.cloudinary.com/dyiceswks/image/upload/v1618057929/UseMine_znnhow.png" alt="_blank" ></img>
         </Link>
         <a href="#" className="sidenav-trigger" data-target="mobile-links">
           <i className="material-icons">menu</i>

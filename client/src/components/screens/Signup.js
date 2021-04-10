@@ -89,8 +89,7 @@ const Signup = () => {
   return (
     <div className="mycard">
       <div className="card auth-card ">
-        <h2>UseMine</h2>
-        <i className="small material-icons prefix">account_circle</i>
+      <img style={{width:"150px"}} src="https://res.cloudinary.com/dyiceswks/image/upload/v1618057929/UseMine_znnhow.png" alt="_blank" ></img>
         <input
           type="text"
           placeholder="שם מלא"
