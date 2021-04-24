@@ -364,6 +364,13 @@ const removeItem = (userId, item, res) => {
     })
 }
 
+/**
+ * getUserPosts
+ * the function gets user id and returns the corresponding posts.
+ * 
+ * @param {userId} userId
+ * @returns res
+ */
 const getUserPosts = (userId, res) => {
     Post.find({postedBy:userId})
     .populate("postedBy","_id name")
@@ -375,6 +382,13 @@ const getUserPosts = (userId, res) => {
     })
 }
 
+/**
+ * getUserPosts
+ * the function gets user id and returns the corresponding cart.
+ * 
+ * @param {userId} userId
+ * @returns res
+ */
 const getUserCart = (userId, res) => {
     User.findOne({_id:userId})
     .populate("postedBy","_id name")
@@ -392,6 +406,15 @@ const getUserCart = (userId, res) => {
     })
 }
 
+/**
+ * likePost
+ * the function gets user id and updates the post like list
+ * by adding the user to the list.
+ * 
+ * @param {userId} userId 
+ * @param {postId} postId 
+ * @param {res} res 
+ */
 const likePost = (userId, postId, res) => {
     Post.findByIdAndUpdate(postId,{
         $push:{likes:userId}
@@ -406,6 +429,15 @@ const likePost = (userId, postId, res) => {
     })
 }
 
+/**
+ * unlikePost
+ * the function gets user id and updates the post like list
+ * by removing the user to the list.
+ * 
+ * @param {userId} userId 
+ * @param {postId} postId 
+ * @param {res} res 
+ */
 const unlikePost = (userId, postId, res) => {
     Post.findByIdAndUpdate(postId,{
         $pull:{likes:userId}
@@ -420,6 +452,16 @@ const unlikePost = (userId, postId, res) => {
     })
 }
 
+/**
+ * postComment
+ * the function gets user id, post id and the the comment's text
+ * and adding the comment to the post's comment array.
+ * 
+ * @param {userId} userId 
+ * @param {postId} postId 
+ * @param {text} text 
+ * @param {res} res 
+ */
 const postComment = (userId, postId, text, res) => {
     const comment = {
         text:text,
@@ -441,6 +483,15 @@ const postComment = (userId, postId, text, res) => {
     })
 }
 
+/**
+ * deletePost
+ * the function gets the user id and post id
+ * finds the post by it's id and removing it.
+ * 
+ * @param {userId} userId 
+ * @param {postId} postId 
+ * @param {res} res 
+ */
 const deletePost = (userId, postId, res) => {
     Post.findOne({_id:postId})
     .populate("postedBy","_id")
@@ -459,6 +510,14 @@ const deletePost = (userId, postId, res) => {
     })
 }
 
+/**
+ * searchPost
+ * the function gets the query
+ * and finds all the relevant posts to that query. 
+ * 
+ * @param {query} query 
+ * @param {res} res 
+ */
 const searchPost = (query, res) => {
     let postPattern = new RegExp("^"+query)
     Post.find({title:{$regex:postPattern}})
