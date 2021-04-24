@@ -3,6 +3,9 @@ const router = express.Router()
 const requireLogin = require('../middleware/requireLogin')
 const services = require("./services");
 
+/**
+ * get all posts
+ */
 router.get('/allpost',requireLogin,(req,res)=>{
   return services.getAllPosts(res);
 })
