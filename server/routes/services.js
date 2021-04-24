@@ -529,6 +529,9 @@ const searchPost = (query, res) => {
     })
 }
 
+/**
+ * exports module
+ */
 module.exports = {
   findUser,
   rateUser,
