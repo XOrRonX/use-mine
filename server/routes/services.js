@@ -330,6 +330,15 @@ const addItem = (userId, item, res) => {
     })
 }
 
+/**
+ * removeItem
+ * the function gets the user id and the item.
+ * and update the user cart by removing the given item.
+ * 
+ * @param {userId} userId 
+ * @param {item} item 
+ * @returns res
+ */
 const removeItem = (userId, item, res) => {
     if(!item){
         return res.status(422).json({error:"הכנס בבקשה את כל השדות הדרושים"})
