@@ -93,6 +93,7 @@ footer{
 #cardPanel{
   position: relative;
   float: right;
+  margin-bottom: 10px;
 }
 
 .add-profile-image{
