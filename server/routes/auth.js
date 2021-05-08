@@ -26,6 +26,11 @@ router.get('/protected',requireLogin,(req,res)=>{
     res.send("hello user")
 })
 
+/**
+ * signup
+ * get user data, ensure there is an email, pass, name
+ * check if the user already exist if not then create a new user.
+ */
 router.post('/signup',(req,res)=> {
    const {name,email,password,photo,phone} = req.body
    if(!email || !password || !name){
