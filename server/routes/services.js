@@ -310,9 +310,13 @@ const addItem = (userId, item, res) => {
     if(!item){
         return res.status(422).json({error:"הכנס בבקשה את כל השדות הדרושים"})
     }
-    
+
     if (item.status === 'לא זמין') {
       return res.status(422).json({error:"מצטרים אך המוצר אינו זמין כעט"})
+    }
+
+    if (item.postedBy._id === userId) {
+      return res.status(422).json({error:"?אתה בטוח שברצונך להוסיף לעגלת המוצרים מוצר שאתה בעצמך העלת"})
     }
 
     Post.findByIdAndUpdate(item._id,{status:'לא זמין'},{useFindAndModify: false}, 
