@@ -32,7 +32,7 @@ router.get('/protected',requireLogin,(req,res)=>{
  * check if the user already exist if not then create a new user.
  */
 router.post('/signup',(req,res)=> {
-   const {name,email,password,photo,phone} = req.body
+   const {name,email,password,photo,phone,id} = req.body
    if(!email || !password || !name){
        return res.status(422).json({error:"הכנס בבקשה את כל השדות הדרושים"})
    } 
@@ -48,7 +48,8 @@ router.post('/signup',(req,res)=> {
                 password:hashedpassword,
                 name,
                 photo,
-                phone
+                phone,
+                id
             })
     
             user.save()

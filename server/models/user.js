@@ -18,12 +18,16 @@ const userSchema = new mongoose.Schema({
             type:String,
             required:true
         },
+        id: {
+            type:String,
+            required:true
+        },
         resetToken:String,
         expireToken:Date,
         cart:[{type:ObjectId,ref:"Post"}],
         photo:{
             type:String,
-            default:"https://www.regionalsan.com/sites/main/files/imagecache/lightbox/main-images/vacant_placeholder.gif"
+            default:"https://res.cloudinary.com/dyiceswks/image/upload/v1624106602/profile_uhxas6.gif"
         },
         rating:[{type:ObjectId,ref:"User"}],
         myRating:[{type:ObjectId,ref:"User"}],

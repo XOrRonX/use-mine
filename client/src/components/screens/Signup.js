@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import M from "materialize-css";
+import isIsraeliIdValid from 'israeli-id-validator';
 
 const Signup = () => {
   const history = useHistory();
@@ -9,6 +10,7 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [photo, setPhoto] = useState("");
   const [phone, setPhone] = useState("");
+  const [id, setId] = useState("");
   const [url, setUrl] = useState("");
 
   useEffect(() => {
@@ -44,7 +46,12 @@ const Signup = () => {
         email
       )
     ) {
-      M.toast({ html: "invalid email", classes: "#b71c1c red darken-4" });
+      M.toast({ html: "כתובת המייל אינה תקינה", classes: "#b71c1c red darken-4" });
+      return;
+    }
+
+    if (!isIsraeliIdValid(id) || !id){
+      M.toast({ html: "מספר זהות לא תקין", classes: "#b71c1c red darken-4" });
       return;
     }
 
@@ -58,7 +65,8 @@ const Signup = () => {
         password,
         email,
         photo: url,
-        phone: "+972" + parseInt(phone, 10)
+        phone: "+972" + parseInt(phone, 10),
+        id
       }),
     })
       .then((res) => res.json())
@@ -113,6 +121,13 @@ const Signup = () => {
           placeholder="טלפון נייד"
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
+          class="validate"
+        />
+        <input
+          type="tel"
+          placeholder="מספר זהות"
+          value={id}
+          onChange={(e) => setId(e.target.value)}
           class="validate"
         />
         <div className="file-field input-field">
