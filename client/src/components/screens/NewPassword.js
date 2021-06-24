@@ -34,7 +34,7 @@ const NewPassword = () => {
   return (
     <div className="mycard">
       <div className="card auth-card ">
-        <h2>Use Mine!</h2>
+      <img style={{width:"150px"}} src="https://res.cloudinary.com/dyiceswks/image/upload/v1618057929/UseMine_znnhow.png" alt="_blank" ></img>
         <input type="password" placeholder="הכנס סיסמא חדשה" value={password} onChange={(e)=>setPassword(e.target.value)}/>
         <button style={{margin:"10px"}} className="btn waves-effect  light-blue darken-4" onClick={()=>PostData()}>עדכן סיסמא</button>
       </div>

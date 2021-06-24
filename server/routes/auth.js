@@ -57,8 +57,12 @@ router.post('/signup',(req,res)=> {
                 transporter.sendMail({
                     to:user.email,
                     from:"or.ron7@gmail.com",
-                    subject:"הרישום בוצע הבצלחה",
-                    html:"<h1>ברוך הבא ל - useMine!</h1>"
+                    subject:"UseMine - הרישום בוצע בהצלחה",
+                    html:`
+                    <p><h1>!${name} ברוך הבא </h1>אנחנו כאן בצוות UseMine מאחלים לך שימוש מהנה באתר וכאן לכל שאלה או נושא.
+                    בברכה,
+                    <img style="width:50px" src="https://res.cloudinary.com/dyiceswks/image/upload/v1618057929/UseMine_znnhow.png" alt="_blank" >
+                    </img></p>`
                 })
                 res.json({message:"המשתמש נשמר בהצלחה"})
             })
@@ -115,10 +119,15 @@ router.post('/reset-password',(req,res)=>{
                transporter.sendMail({
                    to:user.email,
                    from:"or.ron7@gmail.com",
-                   subject:"איפוס סיסמא",
+                   subject:"UseMine - איפוס סיסמא",
                    html:`
-                   <p>ביקשת לאפס את סיסמתך</p>
+                   <p>
+                   ביקשת לאפס את סיסמתך
                    <h5><a href="http://localhost:3000/reset/${token}">איפוס סיסמא</a> לחץ על הלינק הבא בכדי לאפס את סיסמתך </h5>
+                   בברכה,
+                    <img style="width:100px" src="https://res.cloudinary.com/dyiceswks/image/upload/v1618057929/UseMine_znnhow.png" alt="_blank" >
+                    </img>
+                   </p>
                    `
                })
                res.json({message:"בדוק את תיבת המייל שלך"})

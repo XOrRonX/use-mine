@@ -15,12 +15,10 @@ const userSchema = new mongoose.Schema({
             required:true
         },
         phone:{
-            type:String,
-            required:true
+            type:String
         },
         id: {
-            type:String,
-            required:true
+            type:String
         },
         resetToken:String,
         expireToken:Date,

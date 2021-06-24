@@ -15,6 +15,7 @@ import NewPassword from "./components/screens/NewPassword";
 import { reducer, initialState } from "./reducers/userReducer";
 import UserProfile from './components/screens/UserProfile';
 import PaymentSuccess from './components/screens/PaymentSuccess';
+import Terms from './components/screens/Terms';
 export const UserContext = createContext();
 
 const Routing = () => {
@@ -58,6 +59,9 @@ const Routing = () => {
       </Route>
       <Route path="/success">
         <PaymentSuccess />
+      </Route>
+      <Route path="/terms">
+        <Terms />
       </Route>
     </Switch>
   );

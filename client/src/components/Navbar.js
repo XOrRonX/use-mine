@@ -47,6 +47,12 @@ const NavBar = () => {
           <Link to="/create">פרסם מוצר</Link>
         </li>,
         <li  key={4}>
+          <Link to="/reset">איפוס סיסמא</Link>
+        </li>,
+        <li  key={5}>
+        <Link to="/terms">תקנון</Link>
+      </li>,
+        <li  key={6}>
           <button
             className="btn waves-effect"
             
