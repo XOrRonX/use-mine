@@ -59,8 +59,8 @@ router.post('/signup',(req,res)=> {
                     from:"or.ron7@gmail.com",
                     subject:"UseMine - הרישום בוצע בהצלחה",
                     html:`
-                    <p><h1>!${name} ברוך הבא </h1>אנחנו כאן בצוות UseMine מאחלים לך שימוש מהנה באתר וכאן לכל שאלה או נושא.
-                    בברכה,
+                    <p><h1>ברוך הבא ${name}!</h1><p>אנחנו כאן בצוות UseMine מאחלים לך שימוש מהנה באתר וכאן לכל שאלה או נושא.</p>
+                    <p>בברכה,</p>
                     <img style="width:50px" src="https://res.cloudinary.com/dyiceswks/image/upload/v1618057929/UseMine_znnhow.png" alt="_blank" >
                     </img></p>`
                 })

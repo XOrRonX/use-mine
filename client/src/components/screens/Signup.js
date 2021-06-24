@@ -41,12 +41,28 @@ const Signup = () => {
   };
 
   const uploadFields = () => {
+
+    if (!name) {
+      M.toast({ html: " שם משתמש לא תקין", classes: "#b71c1c red darken-4" });
+      return;
+    }
+
     if (
       !/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
         email
       )
     ) {
       M.toast({ html: "כתובת המייל אינה תקינה", classes: "#b71c1c red darken-4" });
+      return;
+    }
+
+    if (!password) {
+      M.toast({ html: "סיסמא לא תקינה", classes: "#b71c1c red darken-4" });
+      return;
+    }
+
+    if (!phone) {
+      M.toast({ html: "מספר פלאפון לא תקין", classes: "#b71c1c red darken-4" });
       return;
     }
 
