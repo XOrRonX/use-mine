@@ -181,7 +181,7 @@ const Home = () => {
                     borderRadius: "50px",
                     margin: "7px",
                   }}
-                  src={item.postedBy.photo}
+                  src={item.postedBy ? item.postedBy.photo : ""}
                   alt=""
                   className="circle"
                 />
@@ -254,7 +254,7 @@ const Home = () => {
                   return (
                     <h6 key={record._id}>
                       <span style={{ fontWeight: "500" }}>
-                        {record.postedBy.name}
+                        {record.postedBy ? record.postedBy.name : "משתמש לא קיים"}
                       </span>{" "}
                       {record.text}
                     </h6>
