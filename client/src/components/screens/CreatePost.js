@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import M from "materialize-css";
 import { useHistory } from "react-router-dom";
+const { categories } = require('../../globals')
 
 const CreatePost = () => {
   const history = useHistory();
@@ -10,19 +11,23 @@ const CreatePost = () => {
   const [image, setImage] = useState("");
   const [loader, setLoader] = useState("");
   const [url, setUrl] = useState("");
+  const [category, setCategory] = useState("");
   useEffect(() => {
+    var elems = document.querySelectorAll("select");
+    var instances = M.FormSelect.init(elems, {});
     if (url) {
       fetch("/createpost", {
         method: "post",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": "Bearer " + localStorage.getItem("jwt"),
+          Authorization: "Bearer " + localStorage.getItem("jwt"),
         },
         body: JSON.stringify({
           title,
           body,
           pic: url,
-          price
+          price,
+          category,
         }),
       })
         .then((res) => res.json())
@@ -49,7 +54,8 @@ const CreatePost = () => {
     data.append("file", image);
     data.append("upload_preset", "mern-stack-project");
     data.append("cloud_name", "dyiceswks");
-    const cloudinaryURL = "https://api.cloudinary.com/v1_1/dyiceswks/image/upload";
+    const cloudinaryURL =
+      "https://api.cloudinary.com/v1_1/dyiceswks/image/upload";
     fetch(cloudinaryURL, {
       method: "post",
       body: data,
@@ -71,7 +77,7 @@ const CreatePost = () => {
         maxWidth: "500px",
         padding: "20px",
         textAlign: "center",
-        direction: "rtl"
+        direction: "rtl",
       }}
     >
       <input
@@ -92,6 +98,17 @@ const CreatePost = () => {
         value={price}
         onChange={(e) => setPrice(e.target.value)}
       />
+      <div dir="rtl" className="input-field col s20 m6">
+        <select
+        className="right"
+        value={category}
+        onChange={(e) => setCategory(e.target.value)}
+        >
+          {categories.map((option) => (
+              <option value={categories.value}>{option.label}</option>
+            ))}
+        </select>
+      </div>
       <div className="file-field input-field">
         <div className="btn blue darken-1">
           <span>
@@ -109,7 +126,7 @@ const CreatePost = () => {
       >
         אישור מוצר
       </button>
-      <div className="progress" style={{margin: "4% auto"}}>
+      <div className="progress" style={{ margin: "4% auto" }}>
         <div className={loader}></div>
       </div>
     </div>

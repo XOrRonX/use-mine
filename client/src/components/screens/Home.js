@@ -3,16 +3,21 @@ import { UserContext } from "../../App";
 import M from "materialize-css";
 import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
+const { categories } = require('../../globals')
 
 const Home = () => {
   const [data, setData] = useState([]);
   const [filter, setFilter] = useState("");
   const [loader, setLoader] = useState("");
   const { state } = useContext(UserContext);
+  const [category, setCategory] = useState([]);
   const history = useHistory();
 
   useEffect(() => {
     setLoader("indeterminate");
+    var elems = document.querySelectorAll("select");
+    var instances = M.FormSelect.init(elems, {});
+    category.push("מוצרי חשמל")
     fetch("/allpost", {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("jwt"),
@@ -132,8 +137,8 @@ const Home = () => {
     instance.open();
   };
 
-  const test = (val) => {
-    setFilter(val);
+  const isItemFiltered = (val) => {
+    return category.some(item => val.category === item);
   };
 
   const addProduct = (item) => {
@@ -169,9 +174,20 @@ const Home = () => {
       <div className={loader === "determinate" ? "" : "progress"}>
         <div className={loader}></div>
       </div>
+      <div dir="rtl" className="input-field col s20 m6 right">
+        <select multiple
+        className="right"
+        value={category}
+        onChange={(e) => setCategory(Array.from(e.target.selectedOptions, option => option.value))}
+        >
+          {categories.map((option) => (
+              <option value={categories.value}>{option.label}</option>
+            ))}
+        </select>
+      </div>
       <div className="home">
         {data.map((item) => {
-          return !filter || item.title === filter ? (
+          return item && isItemFiltered(item) ? (
             <div className="card home-card z-depth-5" key={item._id}>
               <div className="cart-title">
                 <img
@@ -248,8 +264,8 @@ const Home = () => {
                   </i>
                 )}
                 <h6> {item.likes.length} likes</h6>
-                <h6>{item.title}</h6>
-                <p>{item.body}</p>
+                <p>{item.title}</p>
+                <p>{item.category}</p>
                 {item.comments.map((record) => {
                   return (
                     <h6 key={record._id}>
