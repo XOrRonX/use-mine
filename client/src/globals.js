@@ -137,9 +137,136 @@ const categories = [
   },
 ];
 
+const cities = [
+  {
+    label: "הכל",
+    value: "0",
+  },
+  {
+    label: "צפון",
+    value: "1",
+  },
+  {
+    label: "אזור חיפה והסביבה",
+    value: "2",
+  },
+  {
+    label: "אזור הגליל העליון",
+    value: "3",
+  },
+  {
+    label: "חדרה, זכרון והעמקים",
+    value: "4",
+  },
+  {
+    label: "‏אזור קיסריה והסביבה",
+    value: "5",
+  },
+  {
+    label: "אילת",
+    value: "6",
+  },
+  {
+    label: "אזור עמק בית שאן",
+    value: "7",
+  },
+  {
+    label: "אזור נתניה והסביבה",
+    value: "8",
+  },
+  {
+    label: "אזור רמת השרון והרצליה",
+    value: "9",
+  },
+  {
+    label: "אזור רעננה וכפר סבא",
+    value: "10",
+  },
+  {
+    label: "מרכז",
+    value: "11",
+  },
+  {
+    label: "‏אזור תל אביב יפו",
+    value: "12",
+  },
+  {
+    label: "אזור ראשון לציון והסביבה",
+    value: "13",
+  },
+  {
+    label: "אזור חולון ובת ים",
+    value: "14",
+  },
+  {
+    label: "אזור רמת גן וגבעתיים",
+    value: "15",
+  },
+  {
+    label: "פתח תקווה והסביבה",
+    value: "16",
+  },
+  {
+    label: "אזור שוהם והסביבה",
+    value: "17",
+  },
+  {
+    label: "אזור ירושלים",
+    value: "18",
+  },
+  {
+    label: "אזור קרית גת והסביבה",
+    value: "19",
+  },
+  {
+    label: "אזור השפלה",
+    value: "20",
+  },
+  {
+    label: "אזור הר הנגב",
+    value: "21",
+  },
+  {
+    label: "דרום",
+    value: "22",
+  },
+  {
+    label: "אזור אשדוד, אשקלון והסביבה",
+    value: "23",
+  },
+];
+
+const priceRange = [
+  {
+    label: "עד 100",
+    value: "100",
+  },
+  {
+    label: "עד 200",
+    value: "200",
+  },
+  {
+    label: "עד 300",
+    value: "300",
+  },
+  {
+    label: "עד 400",
+    value: "400",
+  },
+  {
+    label: "‏עד 500",
+    value: "500",
+  },
+  {
+    label: "‏מעל 500",
+    value: "50000",
+  },
+];
 /**
  * exports module
  */
 module.exports = {
   categories,
+  cities,
+  priceRange,
 };

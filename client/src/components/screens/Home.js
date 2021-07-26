@@ -3,7 +3,7 @@ import { UserContext } from "../../App";
 import M from "materialize-css";
 import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
-const { categories } = require('../../globals')
+const { categories, cities, priceRange } = require("../../globals");
 
 const Home = () => {
   const [data, setData] = useState([]);
@@ -11,13 +11,18 @@ const Home = () => {
   const [loader, setLoader] = useState("");
   const { state } = useContext(UserContext);
   const [category, setCategory] = useState([]);
+  const [city, setCity] = useState([]);
+  const [price, setPriceRange] = useState([]);
   const history = useHistory();
 
   useEffect(() => {
     setLoader("indeterminate");
     var elems = document.querySelectorAll("select");
-    var instances = M.FormSelect.init(elems, {});
-    category.push("מוצרי חשמל")
+    M.FormSelect.init(elems, {});
+    category.push("מוצרי חשמל","מחשבים וציוד נלווה","ריהוט","‏אומנות","צילום","כלי עבודה","ציוד לדי.ג'י. ולאולפנים","‏ציוד סיעודי/ רפואי")
+    city.push("צפון","אזור ירושלים","אילת","מרכז","אזור השפלה","אזור תל אביב יפו","דרום")
+    price.push("עד 200")
+
     fetch("/allpost", {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("jwt"),
@@ -137,10 +142,6 @@ const Home = () => {
     instance.open();
   };
 
-  const isItemFiltered = (val) => {
-    return category.some(item => val.category === item);
-  };
-
   const addProduct = (item) => {
     fetch(`/addproduct/${state._id}`, {
       method: "put",
@@ -168,22 +169,99 @@ const Home = () => {
         console.log(err);
       });
   };
-  
+
+  const isItemFiltered = (val) => {
+    return (
+      category.some((item) => val.category === item) &&
+      city.some((item) => val.city === item) &&
+      price.some((item) => Number(val.price) <= Number(item.match(/\d+/)[0]))
+    );
+  };
+
   return (
     <div>
       <div className={loader === "determinate" ? "" : "progress"}>
         <div className={loader}></div>
       </div>
-      <div dir="rtl" className="input-field col s20 m6 right">
-        <select multiple
-        className="right"
-        value={category}
-        onChange={(e) => setCategory(Array.from(e.target.selectedOptions, option => option.value))}
-        >
-          {categories.map((option) => (
-              <option value={categories.value}>{option.label}</option>
-            ))}
-        </select>
+      <div
+        className="card header"
+        style={{ marginLeft: "30%", marginRight: "30%" }}
+      >
+        <div className="col s12 m6">
+          <div className="card">
+            <div className="card-content main-header">
+              <h5 className="headerText" style={{ direction: "rtl", marginBottom: "5%" }}>
+                מה תרצו לקנות או להשכיר?
+              </h5>
+              <div
+                className="input-field col s12 m6"
+                style={{ margin: "2%", display: "inline-block" }}
+              >
+                <select
+                  multiple
+                  value={category}
+                  onChange={(e) =>
+                    setCategory(
+                      Array.from(
+                        e.target.selectedOptions,
+                        (option) => option.value
+                      )
+                    )
+                  }
+                >
+                  {categories.map((option) => (
+                    <option value={categories.value}>{option.label}</option>
+                  ))}
+                </select>
+                <label>בחר קטגוריה</label>
+              </div>
+              <div
+                className="input-field col s12 m6"
+                style={{ margin: "2%", display: "inline-block" }}
+              >
+                <select
+                  multiple
+                  value={city}
+                  onChange={(e) =>
+                    setCity(
+                      Array.from(
+                        e.target.selectedOptions,
+                        (option) => option.value
+                      )
+                    )
+                  }
+                >
+                  {cities.map((option) => (
+                    <option value={cities.value}>{option.label}</option>
+                  ))}
+                </select>
+                <label>בחר אזור מכירה</label>
+              </div>
+              <div
+                className="input-field col s12 m6"
+                style={{ margin: "2%", display: "inline-block" }}
+              >
+                <select
+                  multiple
+                  value={price}
+                  onChange={(e) =>
+                    setPriceRange(
+                      Array.from(
+                        e.target.selectedOptions,
+                        (option) => option.value
+                      )
+                    )
+                  }
+                >
+                  {priceRange.map((option) => (
+                    <option value={priceRange.value}>{option.label}</option>
+                  ))}
+                </select>
+                <label>טווח מחירים</label>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div className="home">
         {data.map((item) => {
@@ -270,7 +348,9 @@ const Home = () => {
                   return (
                     <h6 key={record._id}>
                       <span style={{ fontWeight: "500" }}>
-                        {record.postedBy ? record.postedBy.name : "משתמש לא קיים"}
+                        {record.postedBy
+                          ? record.postedBy.name
+                          : "משתמש לא קיים"}
                       </span>{" "}
                       {record.text}
                     </h6>
