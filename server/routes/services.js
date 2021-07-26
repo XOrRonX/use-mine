@@ -256,9 +256,9 @@ const getAllPosts = (res) => {
  * @returns res
  */
 const createPost = (req,res) => {
-    const {title,body,pic,price,category} = req.body
+    const {title,body,pic,price,category,city} = req.body
 
-    if(!title || !body || !pic || !price || !category || !city){
+    if(!title || !body || !pic || !price || !category){
         return res.status(422).json({error:"הכנס בבקשה את כל השדות הדרושים"})
     }
     req.user.password = undefined

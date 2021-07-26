@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import M from "materialize-css";
 import { useHistory } from "react-router-dom";
-const { categories } = require('../../globals')
+const { categories, cities } = require('../../globals')
 
 const CreatePost = () => {
   const history = useHistory();
@@ -12,6 +12,8 @@ const CreatePost = () => {
   const [loader, setLoader] = useState("");
   const [url, setUrl] = useState("");
   const [category, setCategory] = useState("");
+  const [city, setCity] = useState("");
+
   useEffect(() => {
     var elems = document.querySelectorAll("select");
     var instances = M.FormSelect.init(elems, {});
@@ -28,6 +30,7 @@ const CreatePost = () => {
           pic: url,
           price,
           category,
+          city,
         }),
       })
         .then((res) => res.json())
@@ -106,6 +109,17 @@ const CreatePost = () => {
         >
           {categories.map((option) => (
               <option value={categories.value}>{option.label}</option>
+            ))}
+        </select>
+      </div>
+      <div dir="rtl" className="input-field col s20 m6">
+        <select
+        className="right"
+        value={city}
+        onChange={(e) => setCity(e.target.value)}
+        >
+          {cities.map((option) => (
+              <option value={cities.value}>{option.label}</option>
             ))}
         </select>
       </div>

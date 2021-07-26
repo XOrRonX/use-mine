@@ -36,7 +36,6 @@ const postSchema = new mongoose.Schema({
     },
     city:{
         type:String,
-        required:true
     },
 },{timestamps:true})
 
