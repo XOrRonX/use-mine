@@ -139,7 +139,7 @@ const categories = [
 
 const cities = [
   {
-    label: "הכל",
+    label: "בחר עיר",
     value: "0",
   },
   {
