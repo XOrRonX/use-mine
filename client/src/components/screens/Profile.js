@@ -38,8 +38,9 @@ const Profile = () => {
       .then((res) => res.json())
       .then((result) => {
         var total = 0;
-        result.cart.map((item) => {
-          total += item ? item.price : 0;
+        result.cart.map((item ) => {
+
+          total += item && !item.isPurchased ? item.price : 0;
         });
         setSum(total);
         setCart(result.cart);
@@ -206,6 +207,9 @@ const Profile = () => {
         <li className="tab col s3">
           <a href="#test-swipe-2">סל מוצרים</a>
         </li>
+        <li className="tab col s3">
+          <a href="#test-swipe-3">מוצרים שרכשתי</a>
+        </li>
       </ul>
       <div id="test-swipe-1" className="col s12">
         <div className="gallery">
@@ -256,6 +260,7 @@ const Profile = () => {
             </thead>
             <tbody>
               {cart.map((item) => {
+                if (!item.isPurchased)
                 return (
                   <tr key={cart.id}>
                     <td>₪{item ? item.price : 0}</td>
@@ -281,7 +286,7 @@ const Profile = () => {
         </div>
         <div className="gallery">
           {cart.map((item) => {
-            if (item) {
+            if (item && !item.isPurchased) {
               sum += item.price;
               return (
                 <div className="card profile hoverable">
@@ -326,6 +331,40 @@ const Profile = () => {
             } else {
               return "";
             }
+          })}
+        </div>
+      </div>
+      <div id="test-swipe-3" className="col s12">
+        <div className="gallery">
+          {cart.map((item) => {
+            if (item && item.isPurchased) 
+            return (
+              <div key={item._id} className="card profile hoverable">
+                <div className="card-image waves-effect waves-block waves-light">
+                  <img
+                    className="activator"
+                    src={item.photo}
+                    alt={item.title}
+                  />
+                </div>
+                <div className="card-content">
+                  <span className="card-title activator">
+                    {item.title}
+                    <i className="material-icons right">more_vert</i>
+                  </span>
+                  <p>
+                    <a href={item.photo}>photo</a>
+                  </p>
+                </div>
+                <div className="card-reveal">
+                  <span className="card-title">
+                    {item.title}
+                    <i className="material-icons right">close</i>
+                  </span>
+                  <p>{item.body}</p>
+                </div>
+              </div>
+            );
           })}
         </div>
       </div>

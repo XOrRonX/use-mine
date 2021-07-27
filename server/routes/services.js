@@ -149,6 +149,12 @@ const pay = (userId, res) => {
           total += post[0].price;
           itemList.push(obj);
         });
+        Post.findByIdAndUpdate(item,{$set:{isPurchased:true}},{new:true},
+          (err,result)=>{
+              if(err){
+                  return res.status(422).json({error:"העלאת התמונה נכשלה"})
+              }
+          })
       });
       setTimeout(function () {
         global.totalAmount = total;

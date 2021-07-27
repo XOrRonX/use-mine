@@ -37,6 +37,9 @@ const postSchema = new mongoose.Schema({
     city:{
         type:String,
     },
+    isPurchased: {
+        type:Boolean,
+    },
 },{timestamps:true})
 
 mongoose.model("Post",postSchema)
